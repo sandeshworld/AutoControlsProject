@@ -17,10 +17,11 @@ class gy521_imu:
 			while True:
 					b = bus.read_byte_data(self.i2c_address,0x3F) #each reading of x is sent in multiple operations
 					c = bus.read_byte_data(self.i2c_address,0x40)
-					
+					print(b)
+					print(c)
 					time.sleep(self.wait_cnt)
 
 
 
-k = gy521_imu(0x68)
+k = gy521_imu(0x68) #use sudo i2cdetect -y 1 command to find i2c device address
 k.read()
