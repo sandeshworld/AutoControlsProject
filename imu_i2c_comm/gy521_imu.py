@@ -192,3 +192,5 @@ k.analyze_data_stat(5)
 while True:
 	k.readAll();
 k.stop()
+#change code to add more features for only initializing the gyro and accelorme
+#ter axis we need to improve efficiency
