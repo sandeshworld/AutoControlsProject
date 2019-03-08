@@ -139,7 +139,7 @@ class gy521_imu:
 				print("Reading at " +str(1/self.wait_cnt) + " hz")
 				print("x-accel: "+str(x_accel))
 				print("")
-				print("y-accel: "+str(x_accel))
+				print("y-accel: "+str(y_accel))
 				print("")
 				print("z-accel: "+str(z_accel))
 				print("")
@@ -189,4 +189,6 @@ k = gy521_imu(0x68) #use sudo i2cdetect -y 1 command to find i2c device address
 k.initialize();
 k.calibrate();
 k.analyze_data_stat(5)
+while True:
+	k.readAll();
 k.stop()
