@@ -1,3 +1,4 @@
+
 #*Written by Sandesh Banskota 2019 for calibrating and reading MPU6050 (GY-521) data*
 #*Change registers in initialze for higher sensitivity things but make sure to change to
 #to corresponding accelFactor and gyroFactor when you do that*
@@ -188,9 +189,13 @@ class gy521_imu:
 k = gy521_imu(0x68) #use sudo i2cdetect -y 1 command to find i2c device address
 k.initialize();
 k.calibrate();
-k.analyze_data_stat(5)
-while True:
-	k.readAll();
+print("start")
+start = time.time()
+end = start+3
+text_file = open("trial3.txt","w")
+while time.time() < end:
+	text_file.write(str(time.time())+","+str(k.get_y_accel())+","+str(k.get_z_accel())+","+str(k.get_y_gyro())+"\n")
+text_file.close()
 k.stop()
 #change code to add more features for only initializing the gyro and accelorme
 #ter axis we need to improve efficiency
