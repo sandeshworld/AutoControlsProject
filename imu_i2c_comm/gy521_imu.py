@@ -186,16 +186,15 @@ class gy521_imu:
 		print("z_g - avg = "+str(data_stat[10]) + " std = " + str(data_stat[11]))
 		
 		
-k = gy521_imu(0x68) #use sudo i2cdetect -y 1 command to find i2c device address
-k.initialize();
-k.calibrate();
-print("start")
-start = time.time()
-end = start+3
-text_file = open("trial3.txt","w")
-while time.time() < end:
-	text_file.write(str(time.time())+","+str(k.get_y_accel())+","+str(k.get_z_accel())+","+str(k.get_y_gyro())+"\n")
-text_file.close()
-k.stop()
-#change code to add more features for only initializing the gyro and accelorme
-#ter axis we need to improve efficiency
+#k = gy521_imu(0x68) #use sudo i2cdetect -y 1 command to find i2c device address
+#k.initialize();
+#k.calibrate();
+#print("start")
+#start = time.time()
+#end = start+3
+#text_file = open("trial3.txt","w")
+#while time.time() < end:
+#	text_file.write(str(time.time())+","+str(k.get_y_accel())+","+str(k.get_z_accel())+","+str(k.get_y_gyro())+"\n")
+#text_file.close()
+#k.stop()
+#change code to add more features for only initializing 
