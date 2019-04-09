@@ -83,7 +83,7 @@ class gy521_imu:
 	
 	def get_z_accel(self):
 		z_ac_dat = self.bus.read_byte_data(self.i2c_address,0x3F) << 8 | self.bus.read_byte_data(self.i2c_address,0x40) #each reading of z (16 bits) is sent in multiple operations (2 - 8 bit messages)
-		z_a = (z_ac_dat)/self.accelFactor - self.z_a_offset + 1 #apparently conversion rate - based on manufacturer spec sheet
+		z_a = (z_ac_dat)/self.accelFactor - self.z_a_offset # + 1 #apparently conversion rate - based on manufacturer spec sheet
 		return z_a
 		
 	def get_z_gyro(self):
