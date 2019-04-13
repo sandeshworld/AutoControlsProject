@@ -19,22 +19,22 @@ k.initialize();
 k.calibrate();
 print("start")
 start = time.time()
-end = start+4
-text_file = open("trial_step_bottom_3.txt","w")
+end = start+40
+#text_file = open("testing_demo_prof.txt","w")
 zq = 0
 while time.time() < end:
         p = time.time()
-        text_file.write(str(p-start)+","+str(k.get_y_accel())+","+str(k.get_z_accel())+"\n")
+        print(str(k.get_y_accel())+"\n")
 	if p > start+2 and zq == 0:
-		pwm17.start(100)
+		pwm27.start(50)
 		#pwm27.start(50)
 		zq = 1
-
+	time.sleep(0.5)
 
 
 pwm17.stop()
 pwm27.stop()
 GPIO.cleanup()
 	
-text_file.close()
+#text_file.close()
 k.stop()
