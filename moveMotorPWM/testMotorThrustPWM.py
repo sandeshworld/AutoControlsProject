@@ -4,11 +4,17 @@ GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(17,GPIO.OUT)
 GPIO.setup(27,GPIO.OUT)
+GPIO.setup(20,GPIO.OUT)
+GPIO.setup(21,GPIO.OUT)
+
+GPIO.output(20,GPIO.HIGH)
+GPIO.output(21,GPIO.HIGH)
+
 
 pwm17 = GPIO.PWM(17,10000)
 pwm27 = GPIO.PWM(27,10000)
 
-text = open("bottom_motor_data.txt","w")
+text = open("top_motor_pwm_data_trial2.txt","w")
 
 p = 0
 while p != -1:
@@ -16,7 +22,7 @@ while p != -1:
 	#pwm17.start(p)
 	if p == -1:
 		break
-	pwm17.start(p)
+	pwm27.start(p)
 	k = input("Thrust Value: ")
 	text.write(str(p)+","+str(k)+"\n")
 	
