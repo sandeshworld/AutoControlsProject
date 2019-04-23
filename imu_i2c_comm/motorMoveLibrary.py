@@ -27,19 +27,20 @@ k = gy521_imu.gy521_imu(0x68)
 
 k.initialize();
 k.calibrate();
-print("start")
+
+print("move the vehicle to a tilt now - sleep for 2 secs ")
+time.sleep(2)
 start = time.time()
 end = start+4
-text_file = open("gy_ac_noise_thrust_top_100pwm_t2_o.txt","w")
-zq = 0
+text_file = open("ac_top_step_60pwm_t1.txt","w")
 count = 0
 while time.time() < end:
         p = time.time()
-        text_file.write(str(count)+", "+str(k.get_y_accel())+","+str(k.get_x_gyro())+"\n")
-	if p > start+2 and zq == 0:
+        text_file.write(str(p-start)+", "+str(count)+", "+str(k.get_y_accel())+"\n")
+	if p > start+2:
 		#pwm27.start(100)
-		pwm27.start(100)
-		zq = 1
+		pwm27.start(60)
+		
 	time.sleep(0.003)
 	count+=0.003
 	
