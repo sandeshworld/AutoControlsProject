@@ -31,6 +31,11 @@ class gy521_imu:
 		
 			
 	def initialize(self):
+
+		self.bus.write_byte_data(self.i2c_address,0x1A,0b00000010) #powermanagement register - turning it on using x guro phase lock loop THIS ADDS A TWO MS DELAY
+
+                time.sleep(self.wait_cnt)
+
 		self.bus.write_byte_data(self.i2c_address,0x6B,0b00000001) #powermanagement register - turning it on using x guro phase lock loop
 
 		time.sleep(self.wait_cnt)
@@ -192,7 +197,7 @@ class gy521_imu:
 #print("start")
 #start = time.time()
 #end = start+3
-#text_file = open("trial3.txt","w")
+#text_file = open("final_test.txt","w")
 #while time.time() < end:
 #	text_file.write(str(time.time())+","+str(k.get_y_accel())+","+str(k.get_z_accel())+","+str(k.get_y_gyro())+"\n")
 #text_file.close()

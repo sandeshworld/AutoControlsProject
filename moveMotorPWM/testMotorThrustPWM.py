@@ -7,14 +7,14 @@ GPIO.setup(27,GPIO.OUT)
 GPIO.setup(20,GPIO.OUT)
 GPIO.setup(21,GPIO.OUT)
 
-GPIO.output(20,GPIO.HIGH)
-GPIO.output(21,GPIO.HIGH)
+GPIO.output(20,GPIO.LOW)
+GPIO.output(21,GPIO.LOW)
 
 
 pwm17 = GPIO.PWM(17,10000)
 pwm27 = GPIO.PWM(27,10000)
 
-text = open("official_thrust_pwm_top_motor_trial1.txt","w")
+text = open("official_thrust.txt","w")
 
 p = 0
 while p != -1:
@@ -22,7 +22,7 @@ while p != -1:
 	#pwm17.start(p)
 	if p == -1:
 		break
-	pwm17.start(p)
+	pwm27.start(p)
 	k = input("Thrust Value: ")
 	text.write(str(p)+","+str(k)+"\n")
 	
