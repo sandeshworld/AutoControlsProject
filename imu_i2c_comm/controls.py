@@ -5,7 +5,7 @@ import time
 import Queue #using queues will help with getting moving average
 import math
 
-f = open("data.txt","w+")
+#f = open("data00.txt","w+")
 
 k = gy521_imu.gy521_imu(0x68)
 
@@ -62,8 +62,8 @@ def assignThrust(torque):
 	pwm27.start(upper_pwm)
 	pwm17.start(lower_pwm)
 
-	f.write("upper_pwm: " + str(upper_pwm)+"\n")
-	f.write("lower_pwm: " + str(lower_pwm)+"\n")
+	#f.write("upper_pwm: " + str(upper_pwm)+"\n")
+	#f.write("lower_pwm: " + str(lower_pwm)+"\n")
 
 """{
 
@@ -87,7 +87,7 @@ while True:
 	kp = float(input("Enter kp value: "))
 	kd = float(input("Enter kd value: "))
 	
-	f.write("kp: " + str(kp) + " kd: " + str(kd) + "\n")
+	#f.write("kp: " + str(kp) + " kd: " + str(kd) + "\n")
 	q = Queue.Queue()
 	print(time.time())
 	print(time_stop)
@@ -104,6 +104,7 @@ while True:
 				q.get()
 				#print("inside if statement: " + str(q.get()))
 				q.put(k12)
+			
 			sum = 0
 			
 			for i in range(0,m_av_size):
@@ -113,18 +114,22 @@ while True:
 				q.put(a)
 
 			#print("sum: " + str(sum))
-			theta = sum/m_av_size 
-			f.write("Theta: " + str(theta) + "\n")
+			theta = sum/m_av_size
+			
+			#theta = k12 
+			#f.write("Theta: " + str(theta) + "\n")
+			#error = setpoint - theta
 			error = setpoint - theta
 			Pc = kp*error
-			f.write("Pc: "+ str(Pc)+"\n")
+			#f.write("Pc: "+ str(Pc)+"\n")
 			derivative = (error-prev_error)/0.01 #fix the sample time
 			Dc = derivative*kd
-			f.write("Dc: "+str(Dc)+"\n")
+			#f.write("Dc: "+str(Dc)+"\n")
 			control = Pc+Dc
 			throttle = control
-			f.write("Control: " + str(throttle)+"\n")
+			#f.write("Control: " + str(throttle)+"\n")
 			assignThrust(throttle)
+			#f.write("Time: " + str(time.time())+"\n")
 			if p1:
 				q.get()
 			prev_error = error
