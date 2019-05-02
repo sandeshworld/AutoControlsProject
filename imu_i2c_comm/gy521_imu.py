@@ -12,7 +12,7 @@ class gy521_imu:
 	wait_cnt = 0.5 #sec
 	calibrationSamples = 50
 	accelFactor = 16384.0
-	gyroFactor = 250.0
+	gyroFactor = 65.5
 	
 	def __init__(self,i2c_val):
 		self.i2c_address = i2c_val
@@ -32,7 +32,7 @@ class gy521_imu:
 			
 	def initialize(self):
 
-		self.bus.write_byte_data(self.i2c_address,0x1A,0b00000010) #powermanagement register - turning it on using x guro phase lock loop THIS ADDS A TWO MS DELAY
+		self.bus.write_byte_data(self.i2c_address,0x1A,0b00000011) #powermanagement register - turning it on using x guro phase lock loop THIS ADDS A TWO MS DELAY
 
                 time.sleep(self.wait_cnt)
 
@@ -44,7 +44,7 @@ class gy521_imu:
 
 		time.sleep(self.wait_cnt)
 	
-		self.bus.write_byte_data(self.i2c_address,0x1B,0b11100000) #configuring the registers for the gyro
+		self.bus.write_byte_data(self.i2c_address,0x1B,0b11101000) #configuring the registers for the gyro
 			
 		time.sleep(self.wait_cnt)
 		
@@ -110,7 +110,7 @@ class gy521_imu:
 	def get_y_accel(self):
 		y_ac_dat = self.bus.read_byte_data(self.i2c_address,0x3D) << 8 | self.bus.read_byte_data(self.i2c_address,0x3E) #each reading of y is sent in multiple operations
 		y_a = (y_ac_dat)/self.accelFactor - self.y_a_offset
-		return y_a
+		return y_a 
 		
 	def get_y_gyro(self):
 		y_gy_dat = self.bus.read_byte_data(self.i2c_address,0x45) << 8 | self.bus.read_byte_data(self.i2c_address,0x46) #each reading of y gyro(16 bits) is sent in multiple operations (2 - 8 bit messages)
