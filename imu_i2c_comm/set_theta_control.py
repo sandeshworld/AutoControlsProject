@@ -82,6 +82,7 @@ def get_average(queue):
 	return sum/m_av_size
 """
 
+
 prev_error = 0
 ranum = 1
 
