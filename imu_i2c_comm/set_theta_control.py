@@ -4,6 +4,7 @@ import gy521_imu
 import time
 import Queue #using queues will help with getting moving average
 import math
+import threading 
 
 #f = open("data00.txt","w+")
 
@@ -90,7 +91,8 @@ def get_average(queue):
 def control():
 	prev_error = 0
 	ranum = 1
-	while True:
+	end_time = time.time() + 10
+	while time.time() < end_time:
 		time_stop = time.time()+runtime
 		#kp = float(input("Enter kp value: "))
 		#kd = float(input("Enter kd value: "))
@@ -104,7 +106,7 @@ def control():
 		print(time.time())
 		print(time_stop)
 		while time.time() < time_stop:
-			print("Here")
+			#print("Here")
 			#prev_time = time.time()
 			while q.qsize() >= m_av_size:
 				#code for filtering - currently a moving average
@@ -131,8 +133,8 @@ def control():
 
 				#print("sum: " + str(sum))
 				theta = sum/m_av_size
-				if (ranum % 100) == 1:
-					print("theta: " + str(theta) + "\n")
+				#if (ranum % 100) == 1:
+					#print("theta: " + str(theta) + "\n")
 				#theta = k12
 				#f.write("Theta: " + str(theta) + "\n")
 				#error = setpoint - theta
@@ -160,6 +162,8 @@ def control():
 				q.put(math.asin(num2)+0.025)
 
 	stop_program = True
+	pwm27.start(0)
+	pwm17.start(0)
 	pwm17.stop()
 	pwm27.stop()
 	k.stop()
@@ -172,6 +176,10 @@ def user_input():
 		while ok == 0:
 			try:
 				theta_input = int(input("Enter a setpoint theta value: "))
+				kas = 5
+				endat = time.time() + 5
+				while time.time() < endat:
+					kas+=1
 				ok = 1
 			except:
 				print("Please enter an integer between -3 and 3")
@@ -188,11 +196,16 @@ def main_task():
     t1.start()
     t2.start()
 
+    try:
+	while 1:
+		time.sleep(0.1)
+    except KeyboardInterrupt:
     # wait until threads finish their job
-    t1.join()
-    t2.join()
+    	t1.join()
+   	t2.join()
+	print("threads succesfully closed")
+   
 
-
-if name == "__main__":
+if __name__ == "__main__":
 	main_task()
-	
+
