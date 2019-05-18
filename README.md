@@ -17,7 +17,8 @@ Raspberry Pi 3 Model B v 1.2
 
 Link To Final Video:
 
-https://www.youtube.com/watch?v=LuNxR40NLhc&t=177s
+https://www.youtube.com/watch?v=LuNxR40NLhc
+
 
 
  
